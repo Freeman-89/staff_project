@@ -1,0 +1,25 @@
+
+    <table class="table table-striped-columns">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">ФИО</th>
+            <th scope="col">Должность</th>
+            <th scope="col">Дата приёма</th>
+            <th scope="col">Зарплата</th>
+            <th scope="col">Подразделение</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for staff in staff_list %}
+        <tr >
+            <th scope="row">1</th>
+            <td>{{ staff.name }}</td>
+            <td>{{ staff.position }}</td>
+            <td>{{ staff.employment_date }}</td>
+            <td>{{ staff.salary }}</td>
+            <td>{{ staff.subdivision }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>

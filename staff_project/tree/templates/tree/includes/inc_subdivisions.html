@@ -1,0 +1,16 @@
+{% load mptt_tags %}
+<div class="col-md-4">
+    <div id="jstree" class="proton-demo">
+        <ul>
+            {% recursetree object_list %}
+            <li ><a id="{{node.pk}}" href="#">{{node.title}}</a>
+                {% if not node.is_leaf_node %}
+                <ul>
+                    {{ children }}
+                </ul>
+                {% endif %}
+            </li>
+            {% endrecursetree %}
+        </ul>
+    </div>
+</div>

@@ -16,7 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+# import tree.views as tree
+from tree.views import SubdivisionsListView, staff_list_by_division
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', SubdivisionsListView.as_view(), name='category-list'),
+    path('staff_list/<int:pk>/', staff_list_by_division, name='staff_list')
+
+
 ]
