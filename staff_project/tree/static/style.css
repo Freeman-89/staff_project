@@ -1,0 +1,23 @@
+div .row{
+    margin-top:20px;
+    margin-left: 20;
+    margin-right: 50px;
+    justify-content: space-between;
+}
+
+.col-md-4{
+    width: fit-content
+}
+
+.col-md-6{
+    margin-top:20px;
+}
+
+#jstree {
+    margin-top:20px;
+}
+
+
+#width{
+    width: fit-content
+}
