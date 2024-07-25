@@ -1,25 +1,51 @@
+{% load mptt_tags %}
+<table class="table table-striped-columns">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">ФИО</th>
+        <th scope="col">Должность</th>
+        <th scope="col">Дата приёма</th>
+        <th scope="col">Зарплата</th>
+        <th scope="col">Подразделение</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for staff in staff_list %}
+    <tr >
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ staff.name }}</td>
+        <td>{{ staff.position }}</td>
+        <td>{{ staff.employment_date }}</td>
+        <td>{{ staff.salary }}</td>
+        <td>{{ staff.subdivision }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
 
-    <table class="table table-striped-columns">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">ФИО</th>
-            <th scope="col">Должность</th>
-            <th scope="col">Дата приёма</th>
-            <th scope="col">Зарплата</th>
-            <th scope="col">Подразделение</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for staff in staff_list %}
-        <tr >
-            <th scope="row">1</th>
-            <td>{{ staff.name }}</td>
-            <td>{{ staff.position }}</td>
-            <td>{{ staff.employment_date }}</td>
-            <td>{{ staff.salary }}</td>
-            <td>{{ staff.subdivision }}</td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+</table>
+{% if staff_list %}
+<nav aria-label="Page navigation example">
+      <ul class="pagination">
+            {% if staff_list.has_previous %}
+            <li class="page-item">
+                  <a title="{{subdivision.id}} {{staff_list.previous_page_number}}" class="page-link jstree-clicked" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                  </a>
+            </li>
+            {% endif %}
+            <li class="page-item">
+                <a class="page-link jstree-clicked" href="#">
+                    {{ staff_list.number }} из {{ staff_list.paginator.num_pages }}
+                </a>
+            </li>
+            {% if staff_list.has_next %}
+            <li class="page-item">
+                  <a class="page-link jstree-clicked" href="#" title="{{subdivision.pk}} {{staff_list.next_page_number}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                  </a>
+            </li>
+            {% endif %}
+      </ul>
+</nav>
+{% endif %}
