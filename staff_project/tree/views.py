@@ -14,8 +14,8 @@ class SubdivisionsListView(ListView):
 
 def staff_list_by_division(request, pk, page):
     if request:
-        subdivision = Subdivisions.objects.get(pk=int(pk))
-        staff_list = Staff.objects.filter(subdivision=subdivision).order_by('name')
+        subdivision_id = pk
+        staff_list = Staff.objects.filter(subdivision_id=subdivision_id).order_by('name')
         paginator = Paginator(staff_list, 10)
 
         try:
