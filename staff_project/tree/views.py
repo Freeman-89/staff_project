@@ -27,7 +27,6 @@ def staff_list_by_division(request, pk, page):
 
         context = {
             'staff_list': staff_list_paginator,
-            'subdivision': subdivision
         }
         result = render_to_string('tree/includes/inc_table.html', context)
         return JsonResponse({'result': result})
