@@ -1,14 +1,23 @@
+from django.core.exceptions import ValidationError
 from django.db import models
-from django.urls import reverse
 from django.utils import timezone
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
 
 class Subdivisions(MPTTModel):
-    title = models.CharField(verbose_name='название подразделения', max_length=64, unique=False)
-    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children',
-                            db_index=True, verbose_name='Родительское подразделение')
+    title = models.CharField(verbose_name='название подразделения', max_length=64)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True,
+                            related_name='children', db_index=True,
+                            verbose_name='Родительское подразделение',)
+
+    def clean(self, *args, **kwargs):
+        max_indent = 5
+        lvl = 0 if not self.parent else self.parent.level
+        if lvl < max_indent - 1:
+            super().save(*args, **kwargs)
+        else:
+            raise ValidationError(message='У родительской категории достигнута максимальная вложенность')
 
     def __str__(self):
         return self.title
@@ -17,7 +26,6 @@ class Subdivisions(MPTTModel):
         order_insertion_by = ['title']
 
     class Meta:
-        unique_together = [['parent', ]]
         verbose_name = 'Подразделение'
         verbose_name_plural = 'Подразделения'
 
